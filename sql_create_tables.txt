@@ -1,0 +1,46 @@
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Person;
+DROP TABLE IF EXISTS Event;
+DROP TABLE IF EXISTS Authtoken;
+
+CREATE TABLE User (
+    Username varchar(32) NOT NULL UNIQUE,
+    Password varchar(32) NOT NULL,
+    Email varchar(32) NOT NULL,
+    FirstName varchar(32) NOT NULL,
+    LastName varchar(32) NOT NULL,
+    Gender varchar(1) NOT NULL CHECK(Gender == 'f' OR Gender == 'm'),
+    PersonID varchar(32) NOT NULL UNIQUE,
+    PRIMARY KEY(Username)
+);
+
+CREATE TABLE Person (
+    PersonID varchar(32) NOT NULL UNIQUE,
+    AssociatedUsername varchar(32) NOT NULL,
+    FirstName varchar(32) NOT NULL,
+    LastName varchar(32) NOT NULL,
+    Gender varchar(1) NOT NULL CHECK(Gender == 'f' OR Gender == 'm'),
+    FatherID varchar(32),
+    MotherID varchar(32),
+    SpouseID varchar(32),
+    PRIMARY KEY(PersonID)
+);
+
+CREATE TABLE Event (
+    EventID varchar(32) NOT NULL UNIQUE,
+    AssociatedUsername varchar(32) NOT NULL,
+    PersonID varchar(32) NOT NULL,
+    Latitude FLOAT,
+    Longitude FLOAT,
+    Country varchar(32),
+    City varchar(32),
+    EventType varchar(32),
+    Year INTEGER,
+    PRIMARY KEY(EventID)
+);
+
+CREATE TABLE Authtoken (
+    AuthToken varchar(32) NOT NULL UNIQUE,
+    Username varchar(32) NOT NULL,
+    PRIMARY KEY(AuthToken)
+);
